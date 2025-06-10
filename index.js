@@ -9,6 +9,8 @@ const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL;
 app.post('/gitlab-webhook', async (req, res) => {
   const event = req.header('X-Gitlab-Event');
 
+  console.log(req);
+
   if (event !== 'Merge Request Hook') {
     return res.status(200).send('Ignoring non-MR event');
   }

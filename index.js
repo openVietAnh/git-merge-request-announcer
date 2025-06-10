@@ -17,7 +17,7 @@ app.post('/gitlab-webhook', async (req, res) => {
 
   const mr = req.body.object_attributes;
   const reviewers = req.body.reviewers || [];
-  const assignee = req.body.assignee;
+  const assignee = req.body.assignees;
 
   const reviewerMentions = reviewers.map(r => `<@${r.username}>`).join(' ') || '_None_';
   const assigneeMention = assignee ? `<@${assignee.username}>` : '_None_';

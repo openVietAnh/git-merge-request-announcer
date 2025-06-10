@@ -23,7 +23,7 @@ app.post('/gitlab-webhook', async (req, res) => {
   const assigneeMention = assignee ? `<@${assignee.username}>` : '_None_';
 
   const slackMessage = {
-    text: `:gitlab: *New Merge Request Created!*\n*Title:* ${mr.title}\n*Link:* ${mr.url}\n*Reviewers:* ${reviewerMentions}\n*Assignee:* ${assigneeMention}\n\nPlease review this MR. :eyes:`,
+    text: `:gitlab: *Một Merge Request mới đã được tạo!*\n*Tiêu đề:* ${mr.title}\n*Link:* ${mr.url}\nXin nhờ các *reviewers:* ${reviewerMentions} review giúp *assignee:* ${assigneeMention} nhé ạ! \n\n:eyes:`,
   };
 
   try {

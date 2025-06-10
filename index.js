@@ -9,7 +9,7 @@ const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL;
 app.post('/gitlab-webhook', async (req, res) => {
   const event = req.header('X-Gitlab-Event');
 
-  console.log(req);
+  console.log(req.body);
 
   if (event !== 'Merge Request Hook') {
     return res.status(200).send('Ignoring non-MR event');
@@ -19,8 +19,8 @@ app.post('/gitlab-webhook', async (req, res) => {
   const reviewers = req.body.reviewers || [];
   const assignee = req.body.assignees;
 
-  const reviewerMentions = reviewers.map(r => `<@${r.username}>`).join(' ') || '_None_';
-  const assigneeMention = assignee ? `<@${assignee.username}>` : '_None_';
+  const reviewerMentions = reviewers.map(r => `<@${r.username}>`).join(' ') || '(hổng có ai hớt :frowning:)';
+  const assigneeMention = assignee.map(r => `<@${r.username}>`).join(' ') || '(hổng có ai hớt :frowning:)';
 
   const slackMessage = {
     text: `:gitlab: *Một Merge Request mới đã được tạo!*\n*Tiêu đề:* ${mr.title}\n*Link:* ${mr.url}\nXin nhờ các *reviewers:* ${reviewerMentions} review giúp *assignee:* ${assigneeMention} nhé ạ! \n\n:eyes:`,

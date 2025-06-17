@@ -17,10 +17,10 @@ app.post('/gitlab-webhook', async (req, res) => {
 
   const mr = req.body.object_attributes;
   const reviewers = req.body.reviewers || [];
-  const assignee = req.body.assignees;
+  const assignees = req.body.assignees;
 
   const reviewerMentions = reviewers.map(r => `<@${r.username}>`).join(' ') || '(hổng có ai hớt :frowning:)';
-  const assigneeMention = assignee.map(r => `<@${r.username}>`).join(' ') || '(hổng có ai hớt :frowning:)';
+  const assigneeMention = assignees.map(r => `<@${r.username}>`).join(' ') || '(hổng có ai hớt :frowning:)';
 
   const slackMessage = {
     text: `:gitlab: *Một Merge Request mới đã được tạo!*\n*Tiêu đề:* ${mr.title}\n*Link:* ${mr.url}\nXin nhờ các *reviewers:* ${reviewerMentions} review giúp *assignee:* ${assigneeMention} nhé ạ! :eyes:`,
